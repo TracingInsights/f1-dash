@@ -1,16 +1,20 @@
 group "default" {
-  targets = ["f1-dash", "f1-dash-live", "f1-dash-api", "f1-dash-importer", "f1-dash-analytics"]
+  targets = ["f1-dash", "f1-dash-api", "f1-dash-realtime"]
 }
 
 target "docker-metadata-action" {}
 
-// acutal servives and images below
+// actual servives and images below
 
 target "f1-dash" {
   inherits = ["docker-metadata-action"]
 
-  context = "./dash"
+  context = "./dashboard"
   dockerfile = "dockerfile"
+
+  platforms = ["linux/amd64", "linux/arm64"]
+
+  tags = ["ghcr.io/slowlydev/f1-dash:latest"]
 }
 
 target "f1-dash-api" {
@@ -19,28 +23,20 @@ target "f1-dash-api" {
   context = "."
   dockerfile = "dockerfile"
   target = "api"
+
+  platforms = ["linux/amd64", "linux/arm64"]
+
+  tags = ["ghcr.io/slowlydev/f1-dash-api:latest"]
 }
 
-target "f1-dash-live" {
+target "f1-dash-realtime" {
   inherits = ["docker-metadata-action"]
 
   context = "."
   dockerfile = "dockerfile"
-  target = "live"
-}
+  target = "realtime"
 
-target "f1-dash-importer" {
-  inherits = ["docker-metadata-action"]
+  platforms = ["linux/amd64", "linux/arm64"]
 
-  context = "."
-  dockerfile = "dockerfile"
-  target = "importer"
-}
-
-target "f1-dash-analytics" {
-  inherits = ["docker-metadata-action"]
-
-  context = "."
-  dockerfile = "dockerfile"
-  target = "analytics"
+  tags = ["ghcr.io/slowlydev/f1-dash-realtime:latest"]
 }
