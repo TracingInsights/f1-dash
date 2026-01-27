@@ -199,7 +199,3 @@ spec:
               value: "https://api.f1-dash.com"
             - name: DISABLE_IFRAME
               value: "1"
-            - name: TRACKING_ID
-              value: "20892b713552"
-            - name: TRACKING_URL
-              value: "https://sense.slowly.dev/api/script.js"
