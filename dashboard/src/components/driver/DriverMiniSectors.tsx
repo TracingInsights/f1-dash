@@ -11,14 +11,15 @@ type Props = {
 export default function DriverMiniSectors({ sectors = [], bestSectors }: Props) {
 	const showMiniSectors = useSettingsStore((state) => state.showMiniSectors);
 	const showBestSectors = useSettingsStore((state) => state.showBestSectors);
+	const safeSectors = Array.isArray(sectors) ? sectors : [];
 
 	return (
 		<div className="flex gap-2">
-			{sectors.map((sector, i) => (
+			{safeSectors.map((sector, i) => (
 				<div key={`sector.${i}`} className="flex flex-col gap-1">
 					{showMiniSectors && (
 						<div className="flex flex-row gap-1">
-							{sector.Segments.map((segment, j) => (
+							{(sector.Segments ?? []).map((segment, j) => (
 								<MiniSector status={segment.Status} key={`sector.mini.${j}`} />
 							))}
 						</div>

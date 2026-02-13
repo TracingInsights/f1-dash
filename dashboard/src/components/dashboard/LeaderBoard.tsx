@@ -11,6 +11,7 @@ import Driver from "@/components/driver/Driver";
 export default function LeaderBoard() {
 	const drivers = useDataStore(({ state }) => state?.DriverList);
 	const driversTiming = useDataStore(({ state }) => state?.TimingData);
+	const timingLines = driversTiming?.Lines ? Object.values(driversTiming.Lines) : [];
 
 	const showTableHeader = useSettingsStore((state) => state.tableHeaders);
 
@@ -18,13 +19,13 @@ export default function LeaderBoard() {
 		<div className="flex w-fit flex-col gap-0.5">
 			{showTableHeader && <TableHeaders />}
 
-			{(!drivers || !driversTiming) &&
+			{(!drivers || timingLines.length === 0) &&
 				new Array(20).fill("").map((_, index) => <SkeletonDriver key={`driver.loading.${index}`} />)}
 
 			<LayoutGroup key="drivers">
-				{drivers && driversTiming && (
+				{drivers && timingLines.length > 0 && (
 					<AnimatePresence>
-						{Object.values(driversTiming.Lines)
+						{timingLines
 							.sort(sortPos)
 							.map((timingDriver, index) => (
 								<Driver

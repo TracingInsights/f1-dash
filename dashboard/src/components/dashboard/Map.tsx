@@ -34,8 +34,9 @@ function getDriverPosition(
 		return null;
 	}
 
-	// Get all segments from all sectors
-	const allSegments = timingDriver.Sectors.flatMap((sector) => sector.Segments);
+	// Live feeds occasionally omit sector segments for some drivers.
+	const sectors = Array.isArray(timingDriver.Sectors) ? timingDriver.Sectors : [];
+	const allSegments = sectors.flatMap((sector) => (Array.isArray(sector.Segments) ? sector.Segments : []));
 
 	if (allSegments.length === 0) {
 		// No segments available, position at start/finish line
