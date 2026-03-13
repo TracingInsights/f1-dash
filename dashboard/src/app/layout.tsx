@@ -5,7 +5,6 @@ import "@/styles/globals.css";
 
 import { env } from "@/env";
 import EnvScript from "@/env-script";
-import AnalyticsBootstrap from "@/components/analytics/AnalyticsBootstrap";
 import OledModeProvider from "@/components/OledModeProvider";
 
 import { GeistMono } from "geist/font/mono";
